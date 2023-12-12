@@ -4,15 +4,23 @@ import PropTypes from "prop-types";
 
 const PieChartComponent = (props) => {
   const options = {
-    title: props.title ? props.title : "",
+    id: props.id ? props.id : "",
     is3D: true,
     legend: props.legend ? "right" : "none",
   };
 
+  function formatForChart(investment) {
+    const result = [["Name", "Value"]];
+    for (const i in investment) {
+      result.push([investment[i].name, investment[i].value]);
+    }
+    return result;
+  }
+
   return (
     <Chart
       chartType="PieChart"
-      data={props.data}
+      data={formatForChart(props.data[0])}
       options={options}
       width={props.width ? props.width : "200px"}
       height={props.height ? props.height : "200px"}
@@ -21,8 +29,8 @@ const PieChartComponent = (props) => {
 };
 
 PieChartComponent.propTypes = {
-  title: PropTypes.string,
-  data: PropTypes.object,
+  id: PropTypes.number,
+  data: PropTypes.array,
   width: PropTypes.number,
   height: PropTypes.number,
 };

@@ -12,19 +12,20 @@ const WalletComponent = (props) => (
     }}
     cover={
       <center>
-        <PieChartComponent data={props.data} />
+        <PieChartComponent id={props.id} data={props.yearlyInvestments} />
       </center>
     }
     actions={[<EyeOutlined key="view" />, <EditOutlined key="edit" />]}
   >
-    <Meta title={props.title} description={props.description} />
+    <Meta title={"Wallet " + props.id} description={"Goal: R$" + props.goal + " / Time to reach: " + props.timeToReachGoal + " years"} />
   </Card>
 );
 
 WalletComponent.propTypes = {
-  title: PropTypes.string,
-  data: PropTypes.object,
-  description: PropTypes.string,
+  id: PropTypes.number,
+  goal: PropTypes.number,
+  timeToReachGoal: PropTypes.number,
+  yearlyInvestments: PropTypes.array,
 };
 
 export default WalletComponent;

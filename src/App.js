@@ -1,7 +1,11 @@
 import "./App.css";
+import React, { useState, useEffect } from 'react';
 import WalletList from "./page/WalletList";
-import { Card } from "antd";
-
+import { Card, Button } from "antd";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import axios from 'axios';
+import WalletForm from "./page/WalletForm";
+/*
 const data1 = [
   ["Task", "Hours per Day"],
   ["Work", 11],
@@ -19,55 +23,45 @@ const data2 = [
   ["Watch TV", 4],
   ["Sleep", 7],
 ];
-
+*/
 function App() {
-  const wallets = [
-    {
-      title: "Wallet 1",
-      data: data1,
-      description: "Description for Wallet 1",
-    },
-    {
-      title: "Wallet 2",
-      data: data2,
-      description: "Description for Wallet 2",
-    },
-    {
-      title: "Wallet 1",
-      data: data1,
-      description: "Description for Wallet 1",
-    },
-    {
-      title: "Wallet 2",
-      data: data2,
-      description: "Description for Wallet 2",
-    },
-    {
-      title: "Wallet 1",
-      data: data1,
-      description: "Description for Wallet 1",
-    },
-    {
-      title: "Wallet 2",
-      data: data2,
-      description: "Description for Wallet 2",
-    },
-    {
-      title: "Wallet 1",
-      data: data1,
-      description: "Description for Wallet 1",
-    },
-    {
-      title: "Wallet 2",
-      data: data2,
-      description: "Description for Wallet 2",
-    },
-  ];
+  const [wallets, setWallets] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    axios.get('http://localhost:8080/api/wallet/getAll')
+    .then(response => {
+      setWallets(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error);
+    });
+  };
 
   return (
-    <Card title="My Wallets">
-      <WalletList wallets={wallets} />
-    </Card>
+    <div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route index element={      
+            <Card title="My Wallets">
+              <Link to="/new-wallet">
+                <Button type="primary">
+                  New Wallet
+                </Button>
+              </Link>
+              <WalletList wallets={wallets} />
+            </Card>
+          }/>
+          <Route path="new-wallet" element={<WalletForm />} />
+        </Route>
+      </Routes>
+    </BrowserRouter> 
+
+    </div>
   );
 }
 

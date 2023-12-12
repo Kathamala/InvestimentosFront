@@ -9,9 +9,10 @@ const WalletList = (props) => {
       {props.wallets.map((wallet) => (
         <Col key={wallet.id} span={4}>
           <WalletComponent
-            title={wallet.title}
-            data={wallet.data}
-            description={wallet.description}
+            id={wallet.id}
+            goal={wallet.goal}
+            timeToReachGoal={wallet.timeToReachGoal}
+            yearlyInvestments={wallet.yearlyInvestments}
           />
         </Col>
       ))}
@@ -20,7 +21,7 @@ const WalletList = (props) => {
 };
 
 WalletList.propTypes = {
-  wallets: PropTypes.object,
+  wallets: PropTypes.array,
 };
 
 export default WalletList;
