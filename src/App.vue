@@ -25,7 +25,7 @@ export default {
       dataList: [
         { title: 'Card 1', subtitle: 'Subtitle 1', text: 'Text 1' },
         { title: 'Card 2', subtitle: 'Subtitle 2', text: 'Text 2' },
-        { title: 'Card 3', subtitle: 'Subtitle 3', text: 'Text 3' },
+        { title: 'Card 3', subtitle: 'Subtitle 3', text: 'Text 3' }, 
       ],
     };
   },
