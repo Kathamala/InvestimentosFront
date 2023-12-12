@@ -80,125 +80,123 @@ const WalletForm = (props) => {
   };
 
   return (
-    <>
+    <Form form={form} onFinish={submitForm} layout="vertical">
       <Card title="Minha Carteira">
-        <Form form={form} onFinish={submitForm} layout="vertical">
-          <Button type="primary" onClick={addInvestimento}>
-            + Adicionar Investimento
-          </Button>
-          <Row gutter={16} style={{ marginTop: 20 }}>
-            {investimentList.map((field, index) => (
-              <>
-                <Col span={6}>
-                  <Form.Item
-                    label="Nome"
-                    name={["investimentList", index, "name"]}
-                    rules={[{ required: true, message: "Informe um nome!" }]}
-                  >
-                    <Input placeholder="Nome" type="text" />
-                  </Form.Item>
-                </Col>
-                <Col span={4}>
-                  <Form.Item
-                    label="Taxa de Rendimento"
-                    name={["investimentList", index, "yieldRate"]}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Informe uma taxa de rendimento!",
-                      },
-                      {
-                        pattern: /^-?\d*(\.\d*)?$/,
-                        message: "Informe um valor numérico!",
-                      },
-                    ]}
-                  >
-                    <Input
-                      addonAfter="%"
-                      placeholder="Taxa de Rendimento"
-                      type="number"
-                      step="1"
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item
-                    label="Tipo de Investimento"
-                    name={["investimentList", index, "type"]}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Informe um tipo de investimento!",
-                      },
-                    ]}
-                  >
-                    <Select placeholder="Tipo de Investimento">
-                      <Option value="Renda Fixa">Renda Fixa</Option>
-                      <Option value="Renda Variável">Renda Variável</Option>
-                      <Option value="Imóvel">Imóvel</Option>
-                      <Option value="Automóvel">Automóvel</Option>
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item
-                    label="Valor do Investimento"
-                    name={["investimentList", index, "value"]}
-                    rules={[
-                      { required: true, message: "Informe um valor!" },
-                      {
-                        pattern: /^-?\d*(\.\d*)?$/,
-                        message: "Informe um valor numérico!",
-                      },
-                    ]}
-                  >
-                    <Input
-                      addonBefore="R$"
-                      placeholder="Valor do Investimento"
-                      type="number"
-                      step="1"
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={2}>
-                  <Button
-                    danger
-                    style={{ marginTop: 30, marginLeft: 60 }}
-                    onClick={() => removeInvestimento(index)}
-                    icon={<DeleteOutlined />}
-                  >
-                    Delete
-                  </Button>
-                </Col>
-              </>
-            ))}
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="investimentGoal"
-                label="Meta de Investimento"
-                rules={[
-                  {
-                    required: true,
-                    message: "Informe uma meta de investimento!",
-                  },
-                  {
-                    pattern: /^-?\d*(\.\d*)?$/,
-                    message: "Informe um valor numérico!",
-                  },
-                ]}
-              >
-                <Input
-                  addonBefore="R$"
-                  placeholder="Meta de Investimento"
-                  type="number"
-                  step="100"
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
+        <Button type="primary" onClick={addInvestimento}>
+          + Adicionar Investimento
+        </Button>
+        <Row gutter={16} style={{ marginTop: 20 }}>
+          {investimentList.map((field, index) => (
+            <>
+              <Col span={6}>
+                <Form.Item
+                  label="Nome"
+                  name={["investimentList", index, "name"]}
+                  rules={[{ required: true, message: "Informe um nome!" }]}
+                >
+                  <Input placeholder="Nome" type="text" />
+                </Form.Item>
+              </Col>
+              <Col span={4}>
+                <Form.Item
+                  label="Taxa de Rendimento"
+                  name={["investimentList", index, "yieldRate"]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Informe uma taxa de rendimento!",
+                    },
+                    {
+                      pattern: /^-?\d*(\.\d*)?$/,
+                      message: "Informe um valor numérico!",
+                    },
+                  ]}
+                >
+                  <Input
+                    addonAfter="%"
+                    placeholder="Taxa de Rendimento"
+                    type="number"
+                    step="1"
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item
+                  label="Tipo de Investimento"
+                  name={["investimentList", index, "type"]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Informe um tipo de investimento!",
+                    },
+                  ]}
+                >
+                  <Select placeholder="Tipo de Investimento">
+                    <Option value="Renda Fixa">Renda Fixa</Option>
+                    <Option value="Renda Variável">Renda Variável</Option>
+                    <Option value="Imóvel">Imóvel</Option>
+                    <Option value="Automóvel">Automóvel</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item
+                  label="Valor do Investimento"
+                  name={["investimentList", index, "value"]}
+                  rules={[
+                    { required: true, message: "Informe um valor!" },
+                    {
+                      pattern: /^-?\d*(\.\d*)?$/,
+                      message: "Informe um valor numérico!",
+                    },
+                  ]}
+                >
+                  <Input
+                    addonBefore="R$"
+                    placeholder="Valor do Investimento"
+                    type="number"
+                    step="1"
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={2}>
+                <Button
+                  danger
+                  style={{ marginTop: 30, marginLeft: 60 }}
+                  onClick={() => removeInvestimento(index)}
+                  icon={<DeleteOutlined />}
+                >
+                  Delete
+                </Button>
+              </Col>
+            </>
+          ))}
+        </Row>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              name="investimentGoal"
+              label="Meta de Investimento"
+              rules={[
+                {
+                  required: true,
+                  message: "Informe uma meta de investimento!",
+                },
+                {
+                  pattern: /^-?\d*(\.\d*)?$/,
+                  message: "Informe um valor numérico!",
+                },
+              ]}
+            >
+              <Input
+                addonBefore="R$"
+                placeholder="Meta de Investimento"
+                type="number"
+                step="100"
+              />
+            </Form.Item>
+          </Col>
+        </Row>
       </Card>
       <div
         style={{
@@ -219,7 +217,7 @@ const WalletForm = (props) => {
           </Button>
         </div>
       </div>
-    </>
+    </Form>
   );
 };
 
