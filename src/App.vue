@@ -1,15 +1,34 @@
 <template>
-  <PieChartComponent/>
+  <v-row justify="center">
+    <WalletView
+      title="Use Google's location service?"
+      :bodyText="longText"
+      @agree="handleAgree"
+      @disagree="handleDisagree"
+    />
+  </v-row>
+  <WalletForm/>
 </template>
 
 <script>
-import PieChartComponent from './components/PieChartComponent.vue'
+import WalletForm from './pages/WalletForm.vue'
+import WalletView from './pages/WalletView.vue'
 
 export default {
   name: 'App',
   components: {
-    PieChartComponent
-  }
+    WalletForm,
+    WalletView
+  },
+  data() {
+    return {
+      dataList: [
+        { title: 'Card 1', subtitle: 'Subtitle 1', text: 'Text 1' },
+        { title: 'Card 2', subtitle: 'Subtitle 2', text: 'Text 2' },
+        { title: 'Card 3', subtitle: 'Subtitle 3', text: 'Text 3' },
+      ],
+    };
+  },
 }
 </script>
 

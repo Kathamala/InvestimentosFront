@@ -12,7 +12,7 @@
     LegendComponent,
   } from 'echarts/components';
   import VChart, { THEME_KEY } from 'vue-echarts';
-  import { ref, provide } from 'vue';
+  import { ref, provide, defineProps } from 'vue';
   
   use([
     CanvasRenderer,
@@ -22,11 +22,13 @@
     LegendComponent,
   ]);
   
-  provide(THEME_KEY, 'dark');
+  const props = defineProps(['title', 'dataList', 'dataObject', 'mode']);
+
+  provide(THEME_KEY, props.mode);
   
   const option = ref({
     title: {
-      text: 'Traffic Sources',
+      text: props.title,
       left: 'center',
     },
     tooltip: {
@@ -36,21 +38,15 @@
     legend: {
       orient: 'vertical',
       left: 'left',
-      data: ['Direct', 'Email', 'Ad Networks', 'Video Ads', 'Search Engines'],
+      data: props.dataList,
     },
     series: [
       {
-        name: 'Traffic Sources',
+        name: props.title,
         type: 'pie',
         radius: '55%',
         center: ['50%', '60%'],
-        data: [
-          { value: 335, name: 'Direct' },
-          { value: 310, name: 'Email' },
-          { value: 234, name: 'Ad Networks' },
-          { value: 135, name: 'Video Ads' },
-          { value: 1548, name: 'Search Engines' },
-        ],
+        data: props.dataObject,
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
