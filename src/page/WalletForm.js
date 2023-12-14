@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Form, Input, Select, Button, Row, Col, message, Divider } from "antd";
+import { Form, Input, Select, Button, Row, Col, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Card } from "antd";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const WalletForm = (props) => {
   const [form] = Form.useForm();
@@ -81,7 +82,7 @@ const WalletForm = (props) => {
 
   return (
     <Form form={form} onFinish={submitForm} layout="vertical">
-      <Card title="Minha Carteira">
+      <Card title="Nova Carteira">
         <Button type="primary" onClick={addInvestimento}>
           + Adicionar Investimento
         </Button>
@@ -219,6 +220,10 @@ const WalletForm = (props) => {
       </div>
     </Form>
   );
+};
+
+WalletForm.propTypes = {
+  actionType: PropTypes.string,
 };
 
 export default WalletForm;

@@ -7,7 +7,7 @@ const WalletList = (props) => {
   return (
     <Row gutter={16} style={{ marginTop: "20px" }}>
       {props.wallets.map((wallet) => (
-        <Col key={wallet.id} span={4}>
+        <Col key={wallet.id} span={4} style={{ marginTop: "25px" }}>
           <WalletComponent
             id={wallet.id}
             goal={wallet.goal}

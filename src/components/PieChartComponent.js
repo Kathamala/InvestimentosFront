@@ -7,6 +7,7 @@ const PieChartComponent = (props) => {
     id: props.id ? props.id : "",
     is3D: true,
     legend: props.legend ? "right" : "none",
+    backgroundColor: "none",
   };
 
   function formatForChart(investment) {
