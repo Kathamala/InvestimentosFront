@@ -32,8 +32,8 @@ const PieChartComponent = (props) => {
 PieChartComponent.propTypes = {
   id: PropTypes.number,
   data: PropTypes.array,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  width: PropTypes.string,
+  height: PropTypes.string,
 };
 
 export default PieChartComponent;

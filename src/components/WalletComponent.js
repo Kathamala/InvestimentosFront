@@ -35,7 +35,7 @@ const WalletComponent = (props) => {
           description={
             <>
               <div>{"Objetivo: " + formatMonetary(props.goal)}</div>
-              <div>{"Tempo: " + props.timeToReachGoal + " Ano(s)"}</div>
+              <div>{"Tempo: " + props.timeToReachGoal + " ano(s)"}</div>
             </>
           }
         />

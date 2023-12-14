@@ -36,17 +36,22 @@ const ModalComponent = (props) => {
   ];
 
   const data = [];
+  var added_ids = [];
 
   props.yearlyInvestments.forEach((year, yearIndex) => {
     year.forEach((investment) => {
+      var yearFilled = added_ids.some(item => item === yearIndex + 1);
       data.push({
-        key: investment.id,
-        year: yearIndex + 1,
+        key: data.length,
+        year: yearFilled ? "" : yearIndex + 1,
         name: investment.name,
         type: investment.type,
         value: investment.value,
         yieldRate: investment.yieldRate,
       });
+      if(!yearFilled){
+        added_ids.push(yearIndex+1);
+      }
     });
   });
 

@@ -163,7 +163,7 @@ const WalletForm = (props) => {
               <Col span={2}>
                 <Button
                   danger
-                  style={{ marginTop: 30, marginLeft: 60 }}
+                  style={{ marginTop: 30, marginLeft: 30 }}
                   onClick={() => removeInvestimento(index)}
                   icon={<DeleteOutlined />}
                 >
