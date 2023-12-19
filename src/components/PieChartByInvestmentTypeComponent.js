@@ -11,9 +11,15 @@ const PieChartComponent = (props) => {
   };
 
   function formatForChart(investment) {
-    const result = [["Name", "Value"]];
+    const result = [["Type", "Value"]];
     for (const i in investment) {
-      result.push([investment[i].name, investment[i].value]);
+      //if investment type already exists in result add value to that entry, otherwise create a new entry
+      var index = result.findIndex((item) => item[0] === investment[i].type);
+      if (index !== -1) {
+        result[index][1] += investment[i].value;
+        continue;
+      }
+      result.push([investment[i].type, investment[i].value]);
     }
     return result;
   }

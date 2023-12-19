@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Col, Row, Table } from "antd";
 import PropTypes from "prop-types";
 import PieChartComponent from "./PieChartComponent";
+import PieChartByInvestmentTypeComponent from "./PieChartByInvestmentTypeComponent";
 import { formatMonetary } from "../utils";
 
 const ModalComponent = (props) => {
@@ -82,6 +83,13 @@ const ModalComponent = (props) => {
           </Col>
           <Col span={12}>
             <PieChartComponent
+              id={props.id}
+              data={props.yearlyInvestments}
+              legend={"right"}
+              width={"500px"}
+              height={"500px"}
+            />
+            <PieChartByInvestmentTypeComponent
               id={props.id}
               data={props.yearlyInvestments}
               legend={"right"}

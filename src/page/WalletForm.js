@@ -190,6 +190,7 @@ const WalletForm = (props) => {
                       <Option value="Renda Variável">Renda Variável</Option>
                       <Option value="Imóvel">Imóvel</Option>
                       <Option value="Automóvel">Automóvel</Option>
+                      <Option value="Outros">Outros</Option>
                     </Select>
                   </Form.Item>
                 </Col>
