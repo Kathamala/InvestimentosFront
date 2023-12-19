@@ -41,6 +41,7 @@ function App() {
               }
             />
             <Route path="new-wallet" element={<WalletForm />} />
+            <Route path="edit-wallet" element={<WalletForm />} />
           </Route>
         </Routes>
       </BrowserRouter>

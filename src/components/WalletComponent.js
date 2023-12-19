@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { EyeOutlined, EditOutlined } from "@ant-design/icons";
+import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 import PropTypes from "prop-types";
 import PieChartComponent from "./PieChartComponent";
 import ModalComponent from "./ModalComponent";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { formatMonetary } from "../utils";
+import axios from "axios";
 const { Meta } = Card;
 
 const WalletComponent = (props) => {
@@ -23,12 +24,24 @@ const WalletComponent = (props) => {
         id: props.id,
         goal: props.goal,
         timeToReachGoal: props.timeToReachGoal,
-        investments: props.yearlyInvestments[0]
+        investments: props.yearlyInvestments[0],
       },
-      actionType: "edit"
+      actionType: "edit",
     };
-    navigate('/new-wallet', { state: walletFormProps });
-  };  
+    navigate("/edit-wallet", { state: walletFormProps });
+  };
+
+  const deleteWallet = () => {
+    axios
+      .delete(`http://localhost:8080/api/wallet/${props.id}`)
+      .then((response) => {
+        console.log("Carteira excluída com sucesso!");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Erro ao excluir a carteira: ", error);
+      });
+  };
 
   return (
     <>
@@ -43,7 +56,8 @@ const WalletComponent = (props) => {
         }
         actions={[
           <EyeOutlined key="view" onClick={() => toggleVisible()} />,
-          <EditOutlined key="edit" onClick={() => navigateToWalletForm()} />
+          <EditOutlined key="edit" onClick={() => navigateToWalletForm()} />,
+          <DeleteOutlined key="delete" onClick={() => deleteWallet()} />,
         ]}
       >
         <Meta
