@@ -7,17 +7,23 @@ import axios from "axios";
 
 const WalletForm = (props) => {
   const [form] = Form.useForm();
-  const location = useLocation(); 
-  const [investmentList, setInvestmentList] = useState(location.state ? location.state.wallet.investments : [
-    {
-      id: "",
-      name: "",
-      yieldRate: null,
-      value: null,
-      type: "",
-    },
-  ]);
-  const [, setinvestmentGoal] = useState(null);
+  const location = useLocation();
+  const [investmentList, setInvestmentList] = useState(
+    location.state
+      ? location.state.wallet.investments
+      : [
+          {
+            id: "",
+            name: "",
+            yieldRate: null,
+            value: null,
+            type: "",
+          },
+        ]
+  );
+  const [investmentGoal, setInvestmentGoal] = useState(
+    location.state != null ? location.state.wallet.goal : null
+  );
   const { Option } = Select;
 
   const addinvestimento = () => {
@@ -33,25 +39,26 @@ const WalletForm = (props) => {
     ]);
   };
 
-  const removeinvestimento = (index) => {
+  const removeInvestimento = (index) => {
     setInvestmentList((prevList) => {
       const updatedList = [...prevList];
       updatedList.splice(index, 1);
       return updatedList;
-    });  
+    });
   };
 
   const clear = () => {
-    setInvestmentList([
-      {
-        name: "",
-        yieldRate: null,
-        value: null,
-        type: null,
-      },
-    ]);
-    setinvestmentGoal(null);
-    form.resetFields();
+    setInvestmentList(() => {
+      return [
+        {
+          name: "",
+          yieldRate: null,
+          value: null,
+          type: null,
+        },
+      ];
+    }, form.resetFields());
+    setInvestmentGoal(null);
   };
 
   const submitForm = () => {
@@ -65,6 +72,7 @@ const WalletForm = (props) => {
           message.error("Insira ao menos um investimento para continuar!");
           return;
         }
+        debugger;
         var postData = {};
         postData["firstYearInvestments"] = values.investmentList;
         postData["goal"] = values.investmentGoal;
@@ -83,15 +91,53 @@ const WalletForm = (props) => {
       });
   };
 
+  const onChange = (fieldChange) => {
+    if (fieldChange[0].name[0] === "investmentGoal") {
+      setInvestmentGoal(fieldChange[0].value);
+    } else {
+      let updateField = investmentList;
+      const index = fieldChange[0].name[1];
+      const field = fieldChange[0].name[2];
+      updateField[index][field] = fieldChange[0].value;
+      setInvestmentList(updateField);
+    }
+  };
+
+  const fields = investmentList.flatMap((field, index) => {
+    return [
+      { name: ["investmentList", index, "name"], value: field.name },
+      { name: ["investmentList", index, "yieldRate"], value: field.yieldRate },
+      { name: ["investmentList", index, "value"], value: field.value },
+      { name: ["investmentList", index, "type"], value: field.type },
+    ];
+  });
+
+  fields.push({
+    name: "investmentGoal",
+    value: investmentGoal,
+  });
+
   return (
-    <Form form={form} onFinish={submitForm} layout="vertical">
-      <Card title={location.state != null && location.state.actionType === "edit" ? "Editar Carteira" : "Nova Carteira"}>
+    <Form
+      form={form}
+      onFinish={submitForm}
+      onFieldsChange={onChange}
+      layout="vertical"
+      fields={fields}
+    >
+      <Card
+        title={
+          location.state != null && location.state.actionType === "edit"
+            ? "Editar Carteira"
+            : "Nova Carteira"
+        }
+      >
         <Button type="primary" onClick={addinvestimento}>
           + Adicionar investimento
         </Button>
         <Row gutter={16} style={{ marginTop: 20 }}>
           {investmentList.map((field, index) => (
-            <Card style={{ width: '100%' }} key={index}>
+            <Card style={{ width: "100%" }} key={index}>
               <Row gutter={16}>
                 <Col span={6}>
                   <Form.Item
@@ -172,7 +218,7 @@ const WalletForm = (props) => {
                   <Button
                     danger
                     style={{ marginTop: 30, marginLeft: 30 }}
-                    onClick={() => removeinvestimento(index)}
+                    onClick={() => removeInvestimento(index)}
                     icon={<DeleteOutlined />}
                   >
                     Delete
@@ -197,7 +243,7 @@ const WalletForm = (props) => {
                   message: "Informe um valor numérico!",
                 },
               ]}
-              initialValue={location.state != null ? location.state.wallet.goal : null}
+              initialValue={investmentGoal}
             >
               <Input
                 addonBefore="R$"
@@ -230,9 +276,6 @@ const WalletForm = (props) => {
       </div>
     </Form>
   );
-};
-
-WalletForm.propTypes = {
 };
 
 export default WalletForm;
